@@ -2,7 +2,7 @@
     width: 5ch;
 
     font-family: var(--brand-font-family);
-    font-size: clamp(2rem, 4vw, 4rem);
+    font-size: clamp(1.8rem, 4vw, 3rem);
     font-weight: 700;
     text-shadow: 2px 2px 2px var(--brand-color-l-low);
     line-height: 1;

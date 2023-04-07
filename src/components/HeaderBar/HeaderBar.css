@@ -1,0 +1,30 @@
+.HeaderBar {
+    margin-top: 0;
+    margin-bottom: auto;
+    
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.HeaderBar__Logo {
+    margin-left: 2.5%;
+    margin-top: 2.5%;
+}
+
+.HeaderBar__icon {
+    fill: var(--brand-color-l-lowest);
+    width: 10%;
+    max-width: 50px;
+    cursor: pointer;
+}
+
+.HeaderBar__ShoppingCartIcon {
+    margin-left: auto;
+    margin-right: 5%;
+}
+
+.HeaderBar__HamburgerMenuIcon {
+    margin-right: 2.5%;
+}
