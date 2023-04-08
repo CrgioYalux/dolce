@@ -13,18 +13,27 @@
     margin-top: 2.5%;
 }
 
-.HeaderBar__icon {
-    fill: var(--brand-color-l-lowest);
+.HeaderBar__bt {
+    all: unset;
+
+    margin-right: 2.5%;
     width: 10%;
     max-width: 50px;
+
     cursor: pointer;
 }
 
-.HeaderBar__ShoppingCartIcon {
+.HeaderBar__Icon {
+    fill: var(--brand-color-l-lowest);
+    width: 100%;
+    height: 100%;
+}
+
+.HeaderBar__ShoppingCart_bt {
     margin-left: auto;
     margin-right: 5%;
 }
 
-.HeaderBar__HamburgerMenuIcon {
-    margin-right: 2.5%;
+.HeaderBar__HamburgerMenu_bt {
+    margin-right: 5%;
 }

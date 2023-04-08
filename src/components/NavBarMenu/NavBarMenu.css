@@ -1,0 +1,84 @@
+.NavBarMenu {
+    flex: 1 1 auto;
+    width: 100%;
+
+    font-size: clamp(3rem, 4vw, 6rem);
+    font-family: var(--system-font-family);
+
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.NavBarMenu > li {
+    display: flex;
+    flex-direction: row;
+}
+
+.NavBarMenu > li > a {
+    flex: 1 1 auto;
+    padding-left: 5%;
+
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-decoration: none;
+    color: var(--primary-color-l-base);
+}
+
+.NavBarMenu > li:first-child {
+    margin-top: auto;
+}
+
+.NavBarMenu > li:last-child {
+    flex: 0 0 auto;
+    margin-top: auto;
+    margin-bottom: 5%;
+}
+
+.NavBarMenu > li:last-child > button {
+    --NavBarMenu-button-color: var(--primary-color-l-base);
+
+    all: unset;
+    position: relative;
+
+    flex: 0 0 10%;
+    max-width: 50px;
+    aspect-ratio: 1;
+
+    border: 5px solid var(--NavBarMenu-button-color);
+    border-radius: 50%;
+
+    margin: 0 auto;
+    display: grid;
+    place-items: center;
+
+    cursor: pointer;
+}
+
+.NavBarMenu > li:last-child > button::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 150%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-color: var(--brand-color-l-lower);
+
+    opacity: .4;
+
+    display: none;
+}
+
+.NavBarMenu > li:last-child > button:focus::before {
+    display: block;
+}
+
+.NavBarMenu > li:last-child > button > .NavBarMenu__XMarkIcon {
+    width: 100%;
+    height: 100%;
+
+    fill: var(--NavBarMenu-button-color);
+}
