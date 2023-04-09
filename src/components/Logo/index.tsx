@@ -6,7 +6,7 @@ interface LogoProps {
 
 const Logo: React.FC<LogoProps> = ({ className }) => {
     return (
-        <h1 className={`Logo ${className ?? ''}`}>Dolce Mika</h1>
+        <h1 className={`Logo ${className ?? ''}`}>DolceMika</h1>
     );
 };
 

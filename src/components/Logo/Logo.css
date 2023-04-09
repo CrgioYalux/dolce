@@ -1,15 +1,26 @@
 .Logo {
-    width: 5ch;
+    width: 4ch;
+    aspect-ratio: 1;
+
+    word-break: break-all;
+    -ms-word-break: break-all;
+
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
 
     font-family: var(--brand-font-family);
     font-size: clamp(1.8rem, 4vw, 3rem);
     font-weight: 700;
-    text-shadow: 2px 2px 2px var(--brand-color-l-low);
     line-height: 1;
 
     color: white;
     background-color: var(--brand-color-l-lower);
-    aspect-ratio: 1;
 
     display: grid;
     place-items: center;
