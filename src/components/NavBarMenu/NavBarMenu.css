@@ -8,6 +8,11 @@
     display: flex;
     flex-direction: column;
     gap: 1em;
+
+    --NavBarMenu-color: var(--brand-color-l-highest);
+    --NavBarMenu-background-color: var(--brand-color-l-lowest);
+
+    background-color: var(--NavBarMenu-background-color);
 }
 
 .NavBarMenu > li {
@@ -22,7 +27,9 @@
     font-weight: 600;
     letter-spacing: 2px;
     text-decoration: none;
+
     color: var(--primary-color-l-base);
+    color: var(--NavBarMenu-color);
 }
 
 .NavBarMenu > li:first-child {
@@ -37,6 +44,7 @@
 
 .NavBarMenu > li:last-child > button {
     --NavBarMenu-button-color: var(--primary-color-l-base);
+    --NavBarMenu-button-color: var(--NavBarMenu-color);
 
     all: unset;
     position: relative;

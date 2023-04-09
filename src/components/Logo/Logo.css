@@ -8,7 +8,7 @@
     line-height: 1;
 
     color: white;
-    background-color: var(--brand-color-l-lowest);
+    background-color: var(--brand-color-l-lower);
     aspect-ratio: 1;
 
     display: grid;

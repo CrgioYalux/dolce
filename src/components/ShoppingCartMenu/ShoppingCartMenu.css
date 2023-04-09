@@ -1,0 +1,9 @@
+.ShoppingCartMenu {
+    width: 95vw;
+    height: 80vh;
+
+    background-color: var(--brand-color-l-lowest);
+    color: var(--brand-color-l-lowest);
+
+    border-radius: 16px;
+}

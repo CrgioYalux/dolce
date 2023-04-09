@@ -21,3 +21,20 @@
     font-family: var(--systen-font-family);
     letter-spacing: 6px;
 }
+
+.App__HeaderBar {
+    position: relative;
+    --HeaderBar-bt-width: clamp(1em, 8vw, 50px);
+    --HeaderBar-bt-padding: 10px;
+    --HeaderBar-bt-icon-background-color: var(--brand-color-l-lowest);
+}
+
+.App__ShoppingCartMenu {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, calc(var(--HeaderBar-bt-width) / 2 + var(--HeaderBar-bt-padding) * 3/4));
+    z-index: 1000;
+
+    background-color: var(--HeaderBar-bt-icon-background-color) !important;
+}

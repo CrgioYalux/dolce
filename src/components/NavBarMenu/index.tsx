@@ -4,15 +4,17 @@ import './NavBarMenu.css';
 
 interface NavBarMenuProps {
     className?: string;
+
     anchors: {
         href: string;
         label: string;
         target?: React.HTMLAttributeAnchorTarget;
     }[];
+
     handlers?: {
         closeBT?: {
             onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-        }
+        };
     };
 };
 
