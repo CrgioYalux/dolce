@@ -1,0 +1,48 @@
+.MenuList {
+    --MenuList-left-offset: 2px;
+}
+
+.MenuListItem {
+    --MenuListItem-left-offset: 2px;
+}
+
+.Menu,
+.MenuList,
+.MenuListItem {
+    width: 100%;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+    
+    font-size: 1em;
+    color: var(--brand-color-l-lowest);
+}
+
+.MenuListItem > .MenuListItem__title {
+    width: 100%;
+    padding-left: .2em;
+    cursor: pointer;
+
+    transition: background-color .25s ease;
+}
+
+.MenuListItem__title::selection,
+.MenuListItem__description::selection {
+    background-color: var(--brand-color-l-lowest);
+    color: var(--brand-color-l-highest);
+}
+
+.MenuListItem:hover > .MenuListItem__title {
+    background-color: var(--brand-color-l-high);
+}
+
+.MenuListItem__description {
+    margin-left: calc(var(--MenuListItem-left-offset) * 1px);
+
+    width: 20ch;
+}
+
+.MenuList.--apply-offset > .MenuListItem {
+    margin-left: calc(var(--MenuList-left-offset) * 1px);
+}

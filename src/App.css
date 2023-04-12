@@ -38,3 +38,7 @@
 
     background-color: var(--HeaderBar-bt-icon-background-color) !important;
 }
+
+.App > main {
+    margin-top: auto;
+}

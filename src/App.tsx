@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import HeaderBar from './components/HeaderBar';
 import NavBarMenu from './components/NavBarMenu';
+import Menu from './components/Menu';
 
 import './App.css';
 import ShoppingCartMenu from './components/ShoppingCartMenu';
@@ -61,8 +62,7 @@ function App() {
                 {shoppingCarMenuOpen && <ShoppingCartMenu className='App__ShoppingCartMenu' />}
             </HeaderBar>
             <main>
-                <h2>Welcome</h2>
-                <h6>More soon...</h6>
+                <Menu />           
             </main>
         </div>
     );
