@@ -1,6 +1,6 @@
 import type { MenuItem } from "./utils";
 
-const Menu: MenuItem[] = [
+const MENU: MenuItem[] = [
     {
         id: 0,
         title: "Torta",
@@ -174,4 +174,4 @@ const Menu: MenuItem[] = [
     }
 ];
 
-export default Menu;
+export { MENU };
