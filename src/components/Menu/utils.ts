@@ -3,6 +3,7 @@ type MenuItem = {
     title: string,
     description?: string,
     values?: MenuItem[],
+    added?: boolean;
 };
 
 export type { MenuItem };

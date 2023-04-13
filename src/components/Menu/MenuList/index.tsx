@@ -2,47 +2,93 @@ import type { MenuItem } from "../utils";
 
 import './MenuList.css';
 
-interface MenuListProps {
+interface WalkProps {
     list: MenuItem[];
+    ids?: number[];
+
     className?: string;
-    id?: string | number | null;
-    offset?: {
+
+    handlers?: {
+        onListItemClick?: (idsList: number[]) => void;
+    };
+
+    offset: {
         omitFirst: boolean;
         increment: number;
     };
 };
 
-const MenuList: React.FC<MenuListProps> = ({ list, className, id = '', offset = { omitFirst: true, increment: 2 } }) => {
+const Walk: React.FC<WalkProps> = ({
+    list,
+    ids = [],
+    className,
+    handlers,
+    offset
+}) => {
     const listStyle = {
         '--MenuList-left-offset': offset.increment
     } as React.CSSProperties;
 
     return (
         <ul
-            className={`MenuList ${className ?? ''} ${offset.omitFirst ? '' : '--apply-offset'}`}
-            style={listStyle}
+        className={`MenuList ${className ?? ''} ${offset.omitFirst ? '' : '--apply-offset'}`}
+        style={listStyle}
         >
-            {list.map((item) => {
-                const description = item.description ? `(${item.description})` : '';
+            {list.map((item) => (
+                <li 
+                key={item.id}
+                className='MenuListItem'
+                >
+                    <strong
+                    className='MenuListItem__title'
+                    onClick={() => handlers?.onListItemClick && handlers.onListItemClick([...ids, item.id])}
+                    >{item.title}</strong>
 
-                return (
-                    <li 
-                        key={id?.toString().concat(item.id.toString())}
-                        className='MenuListItem'
-                    >
-                        <strong className='MenuListItem__title'>{item.title}</strong>
-                        <small className='MenuListItem__description'>{description}</small>
-                        {item.values && <MenuList
-                                key={id?.toString().concat(item.id.toString())}
-                                list={item.values}
-                                offset={{ omitFirst: false, increment: offset.increment }}
-                            />
-                        }
-                    </li>
-                );
-            })}
+                    {item.description && <small
+                                        className='MenuListItem__description'
+                                        >{item.description}</small>
+                    }
+
+                    {item.values && <Walk
+                                    list={item.values}
+                                    ids={[...ids, item.id]}
+                                    handlers={handlers}
+                                    offset={{ omitFirst: false, increment: offset.increment }}
+                                    />
+                    }
+                </li>
+            ))}
         </ul>
     );
+};
+
+interface MenuListProps {
+    list: MenuItem[];
+
+    className?: string;
+
+    handlers?: {
+        onListItemClick?: (idsList: number[]) => void;
+    };
+
+    offset?: {
+        omitFirst: boolean;
+        increment: number;
+    };
+};
+
+const MenuList: React.FC<MenuListProps> = ({
+    list,
+    className,
+    handlers,
+    offset = { omitFirst: true, increment: 2 },
+}) => {
+    return <Walk
+            list={list}
+            className={className}
+            handlers={handlers}
+            offset={offset}
+            />;
 };
 
 export default MenuList;
