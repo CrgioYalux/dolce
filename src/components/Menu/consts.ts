@@ -3,40 +3,48 @@ import type { MenuItem } from "./utils";
 const MENU: MenuItem[] = [
     {
         id: 0,
+        added: false,
         title: "Torta",
         description: "",
         values: [
             {
                 id: 0,
+                added: false,
                 title: "Bizcochuelo",
                 values: [
                     {
                         id: 0,
+                        added: false,
                         title: "Vainilla",
-                        description: ""
+                        description: "",
                     },
                     {
                         id: 1,
+                        added: false,
                         title: "Chocolate",
-                        description: ""
+                        description: "",
                     },
                     {
                         id: 2,
+                        added: false,
                         title: "Coco y nuez",
-                        description: ""
+                        description: "",
                     },
                     {
                         id: 3,
+                        added: false,
                         title: "Yogurt",
-                        description: ""
+                        description: "",
                     },
                     {
                         id: 4,
+                        added: false,
                         title: "Red velvet",
-                        description: ""
+                        description: "",
                     },
                     {
                         id: 5,
+                        added: false,
                         title: "Hamburgués",
                         description: "Con Chocolate y nueces"
                     }
@@ -44,129 +52,154 @@ const MENU: MenuItem[] = [
             },
             {
                 id: 1,
+                added: false,
                 title: "Almíbar",
                 values: [
                     {
                         id: 0,
+                        added: false,
                         title: "Express",
                         description: "Sin alcohol"
                     },
                     {
                         id: 1,
+                        added: false,
                         title: "Con alcohol",
-                        description: ""
+                        description: "",
                     },
                     {
                         id: 2,
+                        added: false,
                         title: "Naranja",
-                        description: ""
+                        description: "",
                     }
                 ]
             },
             {
                 id: 2,
+                added: false,
                 title: "Relleno",
                 values: [
                     {
                         id: 0,
+                        added: false,
                         title: "Crema pastelera",
-                        description: ""
+                        description: "",
                     },
                     {
                         id: 1,
+                        added: false,
                         title: "Dulce de leche",
-                        description: ""
+                        description: "",
                     },
                     {
                         id: 2,
+                        added: false,
                         title: "Ganache de chocolate",
                         description: "Semiamargo o con leche o blanca"
                     },
                     {
                         id: 3,
+                        added: false,
                         title: "Buttercream de queso",
-                        description: ""
+                        description: "",
                     },
                     {
                         id: 4,
+                        added: false,
                         title: "Buttercream de chocolate",
-                        description: ""
+                        description: "",
                     },
                     {
                         id: 5,
+                        added: false,
                         title: "Ganache de frutos rojos",
-                        description: ""
+                        description: "",
                     },
                     {
                         id: 6,
+                        added: false,
                         title: "Marroc",
-                        description: ""
+                        description: "",
                     },
                     {
                         id: 7,
+                        added: false,
                         title: "Crema Bariloche",
-                        description: ""
+                        description: "",
                     },
                     {
                         id: 8,
+                        added: false,
                         title: "Kinder",
-                        description: ""
+                        description: "",
                     },
                     {
                         id: 9,
+                        added: false,
                         title: "Oreo",
-                        description: ""
+                        description: "",
                     },
                     {
                         id: 10,
+                        added: false,
                         title: "Funge de limón",
                         description: "Leche condensada + chocolate blanco + limón"
                     },
                     {
                         id: 11,
+                        added: false,
                         title: "Brigadeiro blanco",
                         description: "Leche condensada + chocolate blanco"
                     },
                     {
                         id: 12,
+                        added: false,
                         title: "Tramontana",
                         description: "Chocolate blanco + dulce de leche + galletas cubiertas de chocolate"
                     },
                     {
                         id: 13,
+                        added: false,
                         title: "Banana split",
-                        description: ""
+                        description: "",
                     },
                     {
                         id: 14,
+                        added: false,
                         title: "Mantecol",
-                        description: ""
+                        description: "",
                     }
                 ]
             },
             {
                 id: 3,
+                added: false,
                 title: "Coberturas",
                 values: [
                     {
                         id: 0,
+                        added: false,
                         title: "Buttercream italiano",
-                        description: ""
+                        description: "",
                     },
                     {
                         id: 1,
+                        added: false,
                         title: "Ganache de chocolate",
-                        description: ""
+                        description: "",
                     },
                     {
                         id: 2,
+                        added: false,
                         title: "Chantilly",
-                        description: ""
+                        description: "",
                     },
                     {
                         id: 3,
+                        added: false,
                         title: "Fondant",
-                        description: ""
+                        description: "",
                     }
                 ]
             }

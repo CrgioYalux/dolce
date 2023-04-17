@@ -23,6 +23,18 @@
     transition: background-color .25s ease;
 }
 
+.MenuListItem__description {
+    font-size: .7em;
+    margin-left: calc(var(--MenuList-left-offset) * 1px);
+
+    width: 25ch;
+}
+
+.MenuListItem__title > span {
+    margin-left: 10px;
+    display: none;
+}
+
 .MenuListItem__title::selection,
 .MenuListItem__description::selection {
     background-color: var(--brand-color-l-lowest);
@@ -33,13 +45,14 @@
     background-color: var(--brand-color-l-high);
 }
 
+.MenuListItem:hover > .MenuListItem__title > span {
+    display: initial;
+}
+
 .MenuList.--apply-offset > .MenuListItem {
     margin-left: calc(var(--MenuList-left-offset) * 1px);
 }
 
-.MenuListItem__description {
-    font-size: .7em;
-    margin-left: calc(var(--MenuList-left-offset) * 1px);
-
-    width: 25ch;
+.MenuListItem.--added {
+    background-color: var(--brand-color-l-low);
 }

@@ -1,31 +1,33 @@
+import { useState } from 'react';
+
 import MenuList from './MenuList';
+
+import type { MenuItem } from './utils';
+import { findInMenuAndUpdate } from './utils';
 
 import { MENU } from './consts';
 
 import './Menu.css';
-import { MenuItem } from './utils';
 
 interface MenuProps {
     className?: string;
 };
 
 const Menu: React.FC<MenuProps> = ({ className }) => {
+    const [menu, setMenu] = useState<MenuItem[]>(() => MENU);
+
     return (
         <div className={`Menu ${className ?? ''}`}>
             <MenuList
-            list={MENU}
+            list={menu}
             handlers={{
                 onListItemClick: (idsList: number[]) => { 
-                    let currList: MenuItem[] | undefined = MENU[idsList[0]].values;
-
-                    for (let i = 1; i < idsList.length - 1; i++) {
-                        if (!currList) break;
-                        currList = currList[idsList[i]].values;
-                    }
-                    if (!currList) return;
-
-                    const listItem: MenuItem = currList[idsList[idsList.length - 1]];
-                    console.log({ listItem });
+                    if (!idsList.length) return;
+                    setMenu((prev) => {
+                        const out = findInMenuAndUpdate(prev, idsList);
+                        if (!out.length) return prev;
+                        return out;
+                    });
                 }
             }}
             offset={{ omitFirst: true, increment: 30 }}

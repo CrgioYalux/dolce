@@ -37,12 +37,15 @@ const Walk: React.FC<WalkProps> = ({
             {list.map((item) => (
                 <li 
                 key={item.id}
-                className='MenuListItem'
+                className={`MenuListItem ${item.added ? '--added' : ''}`}
                 >
                     <strong
                     className='MenuListItem__title'
                     onClick={() => handlers?.onListItemClick && handlers.onListItemClick([...ids, item.id])}
-                    >{item.title}</strong>
+                    >
+                        {item.title}
+                        <span>{item.added ? '-' : '+'}</span>
+                    </strong>
 
                     {item.description && <small
                                         className='MenuListItem__description'
