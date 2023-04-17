@@ -41,10 +41,10 @@ const Walk: React.FC<WalkProps> = ({
                 >
                     <strong
                     className='MenuListItem__title'
-                    onClick={() => handlers?.onListItemClick && handlers.onListItemClick([...ids, item.id])}
+                    onClick={() => item.isOption && handlers?.onListItemClick && handlers.onListItemClick([...ids, item.id])}
                     >
                         {item.title}
-                        <span>{item.added ? '-' : '+'}</span>
+                        <span>{item.isOption && (item.added ? '-' : '+')}</span>
                     </strong>
 
                     {item.description && <small

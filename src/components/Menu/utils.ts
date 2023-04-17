@@ -4,6 +4,7 @@ type MenuItem = {
     description?: string,
     values?: MenuItem[],
     added: boolean;
+    isOption: boolean;
 };
 
 function walk(menu: MenuItem[] | undefined, idsList: number[]): MenuItem[] {
