@@ -2,9 +2,79 @@ import type { MenuItem } from "../utils";
 
 import './MenuList.css';
 
+interface MenuSectionProps {
+    section: MenuItem;
+};
+
+const MenuSection: React.FC<MenuSectionProps> = ({ section }) => {
+    return (
+        <span
+        className='MenuListItem'
+        >
+            <strong
+            className='MenuListItem__title'
+            >{section.title}</strong>
+
+            {section.description &&
+                <small
+                className='MenuListItem__description'
+                >{section.description}</small>
+            }
+        </span>
+    );
+};
+
+
+interface MenuOptionProps {
+    section: string;
+    option: MenuItem;
+    
+    handlers?: {
+        onClick?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+        onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    };
+};
+
+const MenuOption: React.FC<MenuOptionProps> = ({ section, option, handlers }) => {
+    const sectionFormatted = section.toLowerCase().split(' ').join('_');
+    const titleFormatted = option.title.toLowerCase().split(' ').join('_');
+    const id = `${sectionFormatted}_${titleFormatted}`;
+
+    return (
+        <label
+        htmlFor={id}
+        className={`MenuListItem ${option.added ? '--added' : ''}`}
+        >
+            <strong
+            className='MenuListItem__title'
+            >
+                {option.title}
+                <span>{(!option.added && '+')}</span>
+            </strong>
+
+            {option.description && 
+                <small
+                className='MenuListItem__description'
+                >{option.description}</small>
+            }
+
+            <input
+            type='radio'
+            name={sectionFormatted}
+            id={id}
+            value={option.title}
+            checked={option.added}
+            onClick={(event) => handlers?.onClick && handlers?.onClick(event)}
+            onChange={(event) => handlers?.onChange && handlers?.onChange(event)}
+            />
+        </label>
+    );
+};
+
 interface WalkProps {
     list: MenuItem[];
     ids?: number[];
+    section?: string;
 
     className?: string;
 
@@ -21,9 +91,10 @@ interface WalkProps {
 const Walk: React.FC<WalkProps> = ({
     list,
     ids = [],
+    section = '',
     className,
     handlers,
-    offset
+    offset,
 }) => {
     const listStyle = {
         '--MenuList-left-offset': offset.increment
@@ -35,29 +106,32 @@ const Walk: React.FC<WalkProps> = ({
         style={listStyle}
         >
             {list.map((item) => (
-                <li 
-                key={item.id}
-                className={`MenuListItem ${item.added ? '--added' : ''}`}
-                >
-                    <strong
-                    className='MenuListItem__title'
-                    onClick={() => item.isOption && handlers?.onListItemClick && handlers.onListItemClick([...ids, item.id])}
-                    >
-                        {item.title}
-                        <span>{item.isOption && (item.added ? '-' : '+')}</span>
-                    </strong>
-
-                    {item.description && <small
-                                        className='MenuListItem__description'
-                                        >{item.description}</small>
+                <li key={item.id}>
+                    {item.isOption 
+                        ? <MenuOption
+                          option={item}
+                          section={section}
+                          handlers={{
+                              onChange: () => {
+                                  if (handlers?.onListItemClick) {
+                                      handlers.onListItemClick([...ids, item.id]);
+                                  }
+                              }
+                          }}
+                          /> 
+                        : <MenuSection
+                          section={item}
+                          />
                     }
 
-                    {item.values && <Walk
-                                    list={item.values}
-                                    ids={[...ids, item.id]}
-                                    handlers={handlers}
-                                    offset={{ omitFirst: false, increment: offset.increment }}
-                                    />
+                    {item.values && 
+                        <Walk
+                        list={item.values}
+                        ids={[...ids, item.id]}
+                        handlers={handlers}
+                        offset={{ omitFirst: false, increment: offset.increment }}
+                        section={item.title}
+                        />
                     }
                 </li>
             ))}

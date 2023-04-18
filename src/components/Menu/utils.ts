@@ -26,6 +26,12 @@ function walk(menu: MenuItem[] | undefined, idsList: number[]): MenuItem[] {
                     values: walk(menu[i].values, idsList.slice(1)),
                 });
             }
+        } else if (idsList.length === 1) {
+            out.push({
+                ...menu[i],
+                added: false,
+                values: walk(menu[i].values, []),
+            });
         } else { 
             out.push({
                 ...menu[i],

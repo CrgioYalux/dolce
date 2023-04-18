@@ -3,6 +3,7 @@
 }
 
 .MenuList,
+.MenuList > li,
 .MenuListItem {
     width: 100%;
     flex: 1 1 auto;
@@ -14,13 +15,19 @@
     color: var(--brand-color-l-lowest);
 }
 
+.MenuList.--apply-offset > li {
+    margin-left: calc(var(--MenuList-left-offset) * 1px);
+}
+
+.MenuListItem {
+    cursor: pointer;
+    transition: background-color .25s ease;
+}
+
 .MenuListItem > .MenuListItem__title {
     width: 100%;
     font-size: 1em;
     padding-left: .2em;
-    cursor: pointer;
-
-    transition: background-color .25s ease;
 }
 
 .MenuListItem__description {
@@ -36,23 +43,25 @@
 }
 
 .MenuListItem__title::selection,
+.MenuListItem__title > span::selection,
 .MenuListItem__description::selection {
     background-color: var(--brand-color-l-lowest);
     color: var(--brand-color-l-highest);
 }
 
-.MenuListItem:hover > .MenuListItem__title {
+.MenuList > li:hover > .MenuListItem:not(.--added) {
     background-color: var(--brand-color-l-high);
 }
 
-.MenuListItem:hover > .MenuListItem__title > span {
+.MenuList > li:hover > .MenuListItem > .MenuListItem__title > span {
     display: initial;
 }
 
-.MenuList.--apply-offset > .MenuListItem {
-    margin-left: calc(var(--MenuList-left-offset) * 1px);
+label.MenuListItem.--added {
+    background-color: var(--brand-color-l-low);
+    color: var(--brand-color-l-highest);
 }
 
-.MenuListItem.--added {
-    background-color: var(--brand-color-l-low);
+label.MenuListItem > input {
+    display: none;
 }
