@@ -3,9 +3,9 @@ import { useState } from 'react';
 import HeaderBar from './components/HeaderBar';
 import NavBarMenu from './components/NavBarMenu';
 import Menu from './components/Menu';
+import ShoppingCartMenu from './components/ShoppingCartMenu';
 
 import './App.css';
-import ShoppingCartMenu from './components/ShoppingCartMenu';
 
 function App() {
     const [navBarMenuOpen, setNavBarMenuOpen] = useState<boolean>(false);
@@ -42,27 +42,27 @@ function App() {
     );
 
     return (
-        <div className={`App ${shoppingCarMenuOpen ? '--is-blurred' : '--is-not-blurred'}`}>
+        <div className='App'>
             <HeaderBar 
-                className='App__HeaderBar'
-                events={{
-                    shoppingCart: {
-                        isOpen: shoppingCarMenuOpen
-                    }
-                }}
-                handlers={{
-                    hamburgerMenu: {
-                        onClick: () => setNavBarMenuOpen(true)
-                    },
-                    shoppingCart: {
-                        onClick: () => setShoppingCartMenuOpen(prev => !prev)
-                    },
-                }}
+            className='App__HeaderBar'
+            events={{
+                shoppingCart: {
+                    isOpen: shoppingCarMenuOpen
+                }
+            }}
+            handlers={{
+                hamburgerMenu: {
+                    onClick: () => setNavBarMenuOpen(true)
+                },
+                shoppingCart: {
+                    onClick: () => setShoppingCartMenuOpen(prev => !prev)
+                },
+            }}
             >
                 {shoppingCarMenuOpen && <ShoppingCartMenu className='App__ShoppingCartMenu' />}
             </HeaderBar>
             <main>
-                <Menu />           
+                <Menu />
             </main>
         </div>
     );
