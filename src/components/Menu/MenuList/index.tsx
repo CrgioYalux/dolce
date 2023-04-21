@@ -1,7 +1,7 @@
 import MenuSection from "./MenuSection";
 import MenuOption from "./MenuOption";
 
-import type { MenuItem } from "../utils";
+import type { MenuItem } from "../../../providers/Menu/utils";
 
 import './MenuList.css';
 

@@ -4,14 +4,16 @@ import MenuProvider from "../../providers/Menu";
 interface ProvidersWrapperProps {
     children: React.ReactNode;
 
-    menuProvider: {
-        menu: Menu;
+    initialState: {
+        menuProvider: {
+            menu: Menu;
+        };
     };
 };
 
-const ProvidersWrapper: React.FC<ProvidersWrapperProps> = ({ children, menuProvider }) => {
+const ProvidersWrapper: React.FC<ProvidersWrapperProps> = ({ children, initialState }) => {
     return (
-        <MenuProvider {...menuProvider} >
+        <MenuProvider initialState={initialState.menuProvider} >
             {children}
         </MenuProvider>
     );

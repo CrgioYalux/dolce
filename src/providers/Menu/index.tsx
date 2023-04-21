@@ -1,23 +1,36 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
+
 import type { Menu, MenuState, MenuActions, MenuContextProvider } from "./utils";
+import { findInMenuAndUpdate } from './helpers';
 
 const MenuContext = createContext<MenuContextProvider>([
     {menu: []},
-    {}
+    {
+        setMenu: ([]) => {},
+        pickFromMenu: ([]) => {},
+    }
 ]);
 
 interface MenuProviderProps {
     children: React.ReactNode;
-    menu: Menu;
+    initialState: MenuState;
 };
 
-const MenuProvider: React.FC<MenuProviderProps> = ({ children, menu }) => {
-    const [state, setState] = useState<MenuState>(() => {
-        console.log('asds');
-        return { menu };
-    });
+const MenuProvider: React.FC<MenuProviderProps> = ({ children, initialState }) => {
+    const [state, setState] = useState<MenuState>(initialState);
 
     const actions: MenuActions = {
+        setMenu: (menu: Menu) => {
+            setState((prev) => ({ ...prev, menu: menu })); 
+        },
+        pickFromMenu: (idsList: number[]) => {
+            if (!idsList.length) return;
+            setState((prev) => {
+                const out = findInMenuAndUpdate(prev.menu, idsList);
+                if (!out.length) return prev;
+                return { ...prev, menu: out };
+            });
+        },
     };
 
     const value: MenuContextProvider = [state, actions];
@@ -29,5 +42,7 @@ const MenuProvider: React.FC<MenuProviderProps> = ({ children, menu }) => {
     );
 };
 
-export { MenuContext };
+const useMenuContext = () => useContext<MenuContextProvider>(MenuContext);
+
+export { useMenuContext };
 export default MenuProvider;

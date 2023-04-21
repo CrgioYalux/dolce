@@ -1,4 +1,4 @@
-import type { MenuItem } from "../utils";
+import type { MenuItem } from "../../../providers/Menu/utils";
 
 interface MenuSectionProps {
     section: MenuItem;

@@ -14,6 +14,8 @@ interface MenuState {
 };
 
 interface MenuActions {
+    setMenu: (menu: Menu) => void;
+    pickFromMenu: (idsList: number[]) => void;
 };
 
 type MenuContextProvider = readonly [

@@ -1,15 +1,24 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useMenuContext } from './providers/Menu';
 
 import HeaderBar from './components/HeaderBar';
 import NavBarMenu from './components/NavBarMenu';
 import Menu from './components/Menu';
 import ShoppingCartMenu from './components/ShoppingCartMenu';
 
+import { MENU } from './consts';
+
 import './App.css';
 
 function App() {
     const [navBarMenuOpen, setNavBarMenuOpen] = useState<boolean>(false);
     const [shoppingCarMenuOpen, setShoppingCartMenuOpen] = useState<boolean>(false);
+    const [_, actions] = useMenuContext();
+
+    useEffect(() => {
+        console.log('fetching and setting');
+        actions.setMenu(MENU);
+    }, []);
 
     if (navBarMenuOpen) return (
         <div className='App'>

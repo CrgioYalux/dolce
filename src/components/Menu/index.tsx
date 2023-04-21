@@ -1,11 +1,6 @@
-import { useState } from 'react';
+import { useMenuContext } from '../../providers/Menu';
 
 import MenuList from './MenuList';
-
-import type { MenuItem } from './utils';
-import { findInMenuAndUpdate } from './utils';
-
-import { MENU } from './consts';
 
 import './Menu.css';
 
@@ -14,20 +9,15 @@ interface MenuProps {
 };
 
 const Menu: React.FC<MenuProps> = ({ className }) => {
-    const [menu, setMenu] = useState<MenuItem[]>(() => MENU);
+    const [state, actions] = useMenuContext();
 
     return (
         <div className={`Menu ${className ?? ''}`}>
             <MenuList
-            list={menu}
+            list={state.menu}
             handlers={{
                 onListItemClick: (idsList: number[]) => { 
-                    if (!idsList.length) return;
-                    setMenu((prev) => {
-                        const out = findInMenuAndUpdate(prev, idsList);
-                        if (!out.length) return prev;
-                        return out;
-                    });
+                    actions.pickFromMenu(idsList);
                 }
             }}
             offset={{ omitFirst: true, increment: 30 }}

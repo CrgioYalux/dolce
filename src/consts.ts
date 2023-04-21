@@ -1,6 +1,6 @@
-import type { MenuItem } from "./utils";
+import type { Menu } from "./providers/Menu/utils";
 
-const MENU: MenuItem[] = [
+const MENU: Menu = [
     {
         id: 0,
         added: false,
