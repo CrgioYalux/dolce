@@ -1,10 +1,10 @@
 type MenuItem = {
     id: number,
     title: string,
-    description?: string,
+    added: boolean,
+    isOption: boolean,
     values?: MenuItem[],
-    added: boolean;
-    isOption: boolean;
+    description?: string,
 };
 
 type Menu = MenuItem[];

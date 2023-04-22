@@ -1,7 +1,7 @@
 import { createContext, useContext, useState } from "react";
 
 import type { Menu, MenuState, MenuActions, MenuContextProvider } from "./utils";
-import { findInMenuAndUpdate } from './helpers';
+import { switchMenuItemAdded } from './helpers';
 
 const MenuContext = createContext<MenuContextProvider>([
     {menu: []},
@@ -26,7 +26,7 @@ const MenuProvider: React.FC<MenuProviderProps> = ({ children, initialState }) =
         pickFromMenu: (idsList: number[]) => {
             if (!idsList.length) return;
             setState((prev) => {
-                const out = findInMenuAndUpdate(prev.menu, idsList);
+                const out = switchMenuItemAdded(prev.menu, idsList);
                 if (!out.length) return prev;
                 return { ...prev, menu: out };
             });

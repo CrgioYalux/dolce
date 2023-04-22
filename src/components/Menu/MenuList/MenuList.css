@@ -65,3 +65,19 @@ label.MenuListItem.--added {
 label.MenuListItem > input {
     display: none;
 }
+
+span.MenuListItem { 
+    position: relative;
+}
+
+span.MenuListItem > .MenuListItem__check {
+    position: absolute;
+    left: -20px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    height: 60%;
+    aspect-ratio: 1;
+
+    fill: var(--brand-color-l-low);
+}
