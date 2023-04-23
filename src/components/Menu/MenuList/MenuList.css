@@ -16,7 +16,7 @@
 }
 
 .MenuList.--apply-offset > li {
-    margin-left: calc(var(--MenuList-left-offset) * 1px);
+    padding-left: calc(var(--MenuList-left-offset) * 1px);
 }
 
 .MenuListItem {
@@ -25,25 +25,20 @@
 }
 
 .MenuListItem > .MenuListItem__title {
+    position: relative;
     width: 100%;
     font-size: 1em;
     padding-left: .2em;
 }
 
 .MenuListItem__description {
-    font-size: .7em;
-    margin-left: calc(var(--MenuList-left-offset) * 1px);
+    font-size: .65em;
+    padding-left: calc(var(--MenuList-left-offset) * 1px);
 
     width: 25ch;
 }
 
-.MenuListItem__title > span {
-    margin-left: 10px;
-    display: none;
-}
-
 .MenuListItem__title::selection,
-.MenuListItem__title > span::selection,
 .MenuListItem__description::selection {
     background-color: var(--brand-color-l-lowest);
     color: var(--brand-color-l-highest);
@@ -51,10 +46,6 @@
 
 .MenuList > li:hover > .MenuListItem:not(.--added) {
     background-color: var(--brand-color-l-high);
-}
-
-.MenuList > li:hover > .MenuListItem > .MenuListItem__title > span {
-    display: initial;
 }
 
 label.MenuListItem.--added {
@@ -66,18 +57,16 @@ label.MenuListItem > input {
     display: none;
 }
 
-span.MenuListItem { 
-    position: relative;
-}
-
-span.MenuListItem > .MenuListItem__check {
+span.MenuListItem > .MenuListItem__title > .MenuListItem__check {
     position: absolute;
-    left: -20px;
+    right: calc(100% + 2.5px);
     top: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(0, -50%);
 
-    height: 60%;
+    height: 50%;
     aspect-ratio: 1;
 
     fill: var(--brand-color-l-low);
+
+    opacity: 1;
 }

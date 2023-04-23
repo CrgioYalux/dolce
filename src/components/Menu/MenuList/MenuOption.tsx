@@ -24,7 +24,6 @@ const MenuOption: React.FC<MenuOptionProps> = ({ section, option, handlers }) =>
             className='MenuListItem__title'
             >
                 {option.title}
-                <span>{(!option.added && '+')}</span>
             </strong>
 
             {option.description && 

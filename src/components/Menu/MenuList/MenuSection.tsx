@@ -10,10 +10,12 @@ const MenuSection: React.FC<MenuSectionProps> = ({ section }) => {
         <span
         className='MenuListItem'
         >
-            {section.added && <CheckIcon className='MenuListItem__check' />}
             <strong
-            className='MenuListItem__title'
-            >{section.title}</strong>
+            className={`MenuListItem__title ${section.added ? '--added' : '--not-added'}`}
+            >
+            {section.added && <CheckIcon className='MenuListItem__check' />}
+            {section.title}
+            </strong>
             {section.description &&
                 <small
                 className='MenuListItem__description'

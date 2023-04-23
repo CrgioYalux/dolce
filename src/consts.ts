@@ -13,6 +13,7 @@ const MENU: Menu = [
                 added: false,
                 isOption: false,
                 title: "Bizcochuelo",
+                description: "Added a description",
                 values: [
                     {
                         id: 0,
