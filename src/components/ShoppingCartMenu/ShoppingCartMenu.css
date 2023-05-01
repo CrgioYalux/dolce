@@ -3,7 +3,7 @@
     height: 80vh;
 
     background-color: var(--brand-color-l-lowest);
-    color: var(--brand-color-l-lowest);
+    color: var(--brand-color-l-highest);
 
     border-radius: 16px;
 }

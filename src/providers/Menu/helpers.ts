@@ -33,16 +33,10 @@ function switchMenuItemAdded(menu: MenuItem[] | undefined, idsList: number[]): M
                         values: walk(menu[i].values, []),
                     });
                 }
-                else if (idsList.length === 2) {
-                    out.push({
-                        ...menu[i],
-                        added: !getMenuItem(menu, idsList)?.added ?? false,
-                        values: walk(menu[i].values, idsList.slice(1)),
-                    });
-                }
                 else {
                     out.push({
                         ...menu[i],
+                        added: !getMenuItem(menu, idsList)?.added ?? false,
                         values: walk(menu[i].values, idsList.slice(1)),
                     });
                 }
@@ -66,4 +60,4 @@ function switchMenuItemAdded(menu: MenuItem[] | undefined, idsList: number[]): M
     return walk(menu, idsList);
 }
 
-export { switchMenuItemAdded };
+export { getMenuItem, switchMenuItemAdded };

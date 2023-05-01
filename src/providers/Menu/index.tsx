@@ -1,23 +1,45 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useRef, useEffect } from "react";
 
-import type { Menu, MenuState, MenuActions, MenuContextProvider } from "./utils";
-import { switchMenuItemAdded } from './helpers';
+import type { MenuItem, Menu, MenuState, MenuActions, MenuContextProvider, OrderedFromMenu } from "./utils";
+import { getMenuItem, switchMenuItemAdded } from './helpers';
 
-const MenuContext = createContext<MenuContextProvider>([
-    {menu: []},
-    {
-        setMenu: ([]) => {},
-        pickFromMenu: ([]) => {},
-    }
-]);
+import { INITAL_MENU_CONTEXT, INITIAL_MENU_STATE } from "./consts";
+
+const MenuContext = createContext<MenuContextProvider>(INITAL_MENU_CONTEXT);
 
 interface MenuProviderProps {
     children: React.ReactNode;
-    initialState: MenuState;
+    initialState: MenuState | undefined;
 };
 
-const MenuProvider: React.FC<MenuProviderProps> = ({ children, initialState }) => {
+const MenuProvider: React.FC<MenuProviderProps> = ({ children, initialState = INITIAL_MENU_STATE }) => {
     const [state, setState] = useState<MenuState>(initialState);
+    const orderedRef = useRef<OrderedFromMenu | null>(null);
+
+    useEffect(() => {
+        if (orderedRef.current) return;
+        orderedRef.current = new Map<string, MenuItem[]>();
+    }, []);
+
+    const addToOrdered = (idsList: number[]): MenuItem[][] | undefined => {
+        if (!orderedRef.current) return undefined;
+
+        const key = idsList.slice(0, idsList.length - 1).join('');
+        const menuItems: MenuItem[] = [];
+
+        for (let i = 1; i <= idsList.length; i++) {
+            const menuItem = getMenuItem(state.menu, idsList.slice(0, i));
+            if (!menuItem) break;
+            const { values, ...rest } = menuItem;
+
+            menuItems.push(rest);                       
+        }
+        
+        if (!(idsList.length === menuItems.length)) return;
+
+        const ordered = orderedRef.current.set(key, menuItems);
+        return Array.from(ordered.values());
+    };
 
     const actions: MenuActions = {
         setMenu: (menu: Menu) => {
@@ -25,11 +47,14 @@ const MenuProvider: React.FC<MenuProviderProps> = ({ children, initialState }) =
         },
         pickFromMenu: (idsList: number[]) => {
             if (!idsList.length) return;
-            setState((prev) => {
-                const out = switchMenuItemAdded(prev.menu, idsList);
-                if (!out.length) return prev;
-                return { ...prev, menu: out };
-            });
+
+            const ordered = addToOrdered(idsList);
+            if (!ordered) return;
+
+            const menu = switchMenuItemAdded(state.menu, idsList);
+            if (menu.length === 0) return;
+
+            setState({ menu, ordered });
         },
     };
 
@@ -44,5 +69,6 @@ const MenuProvider: React.FC<MenuProviderProps> = ({ children, initialState }) =
 
 const useMenuContext = () => useContext<MenuContextProvider>(MenuContext);
 
+export type { MenuState };
 export { useMenuContext };
 export default MenuProvider;

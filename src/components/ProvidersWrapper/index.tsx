@@ -1,19 +1,17 @@
-import type { Menu } from '../../providers/Menu/utils';
-import MenuProvider from "../../providers/Menu";
+import type { MenuState } from '../../providers/Menu';
+import MenuProvider from '../../providers/Menu';
 
 interface ProvidersWrapperProps {
     children: React.ReactNode;
 
-    initialState: {
-        menuProvider: {
-            menu: Menu;
-        };
+    initialState?: {
+        menuProvider: MenuState | undefined;
     };
 };
 
 const ProvidersWrapper: React.FC<ProvidersWrapperProps> = ({ children, initialState }) => {
     return (
-        <MenuProvider initialState={initialState.menuProvider} >
+        <MenuProvider initialState={initialState?.menuProvider} >
             {children}
         </MenuProvider>
     );

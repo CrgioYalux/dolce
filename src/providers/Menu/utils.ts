@@ -11,6 +11,7 @@ type Menu = MenuItem[];
 
 interface MenuState {
     menu: Menu;
+    ordered: MenuItem[][];
 };
 
 interface MenuActions {
@@ -23,4 +24,6 @@ type MenuContextProvider = readonly [
     actions: MenuActions,
 ];
 
-export type { MenuItem, Menu, MenuState, MenuActions, MenuContextProvider };
+type OrderedFromMenu = Map<string, MenuItem[]>;
+
+export type { MenuItem, Menu, MenuState, MenuActions, MenuContextProvider, OrderedFromMenu };
