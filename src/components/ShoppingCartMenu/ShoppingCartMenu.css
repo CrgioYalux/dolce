@@ -7,3 +7,10 @@
 
     border-radius: 16px;
 }
+
+.ShoppingCartMenu__MenuList {
+    --MenuList-font-size: 1.5em;
+    --MenuList-color: var(--brand-color-l-highest);
+    --MenuList-color--selection: var(--brand-color-l-lowest);
+    --MenuList-background-color--selection: var(--brand-color-l-highest);
+}

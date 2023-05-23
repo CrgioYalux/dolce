@@ -1,4 +1,5 @@
 import { useMenuContext } from '../../providers/Menu';
+import MenuList from '../Menu/MenuList'; 
 
 import './ShoppingCartMenu.css';
 
@@ -11,13 +12,12 @@ const ShoppingCartMenu: React.FC<ShoppingCartMenuProps> = ({ className }) => {
 
     return (
         <div className={`ShoppingCartMenu ${className ?? ''}`}>
-        {state.ordered.map((order, i) => 
-            <ul key={i}>
-                {order.map((item, j) =>
-                    <li key={`${i}${j}`}>{item.title}</li>
-                )}
-            </ul>
-        )}
+            <MenuList 
+                list={state.ordered}
+                className='ShoppingCartMenu__MenuList'
+                readOnly={true}
+                offset={{ omitFirst: true, increment: 15 }}
+            />
         </div>
     );
 };

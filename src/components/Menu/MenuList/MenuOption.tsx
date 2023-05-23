@@ -10,7 +10,11 @@ interface MenuOptionProps {
     };
 };
 
-const MenuOption: React.FC<MenuOptionProps> = ({ section, option, handlers }) => {
+const MenuOption: React.FC<MenuOptionProps> = ({ 
+    section,
+    option,
+    handlers
+}) => {
     const sectionFormatted = section.toLowerCase().split(' ').join('_');
     const titleFormatted = option.title.toLowerCase().split(' ').join('_');
     const id = `${sectionFormatted}_${titleFormatted}`;

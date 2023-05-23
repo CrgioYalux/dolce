@@ -11,7 +11,7 @@ type Menu = MenuItem[];
 
 interface MenuState {
     menu: Menu;
-    ordered: MenuItem[][];
+    ordered: Menu;
 };
 
 interface MenuActions {

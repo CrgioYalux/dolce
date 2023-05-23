@@ -1,5 +1,12 @@
 .MenuList {
+    --MenuList-font-size: 1em;
     --MenuList-left-offset: 2px;
+    --MenuList-color: var(--brand-color-l-lowest);
+    --MenuList-color--selection: var(--brand-color-l-highest);
+    --MenuList-background-color--selection: var(--brand-color-l-lowest);
+    --MenuList-background-color--hover: var(--brand-color-l-high);
+    --MenuList-background-color--added: var(--brand-color-l-low);
+    --MenuList-color--added: var(--brand-color-l-highest);
 }
 
 .MenuList,
@@ -11,46 +18,54 @@
     flex-direction: column;
     align-self: flex-start;
     
-    font-size: 1em;
-    color: var(--brand-color-l-lowest);
+    color: var(--MenuList-color);
 }
 
 .MenuList.--apply-offset > li {
     padding-left: calc(var(--MenuList-left-offset) * 1px);
 }
 
-.MenuListItem {
+.MenuList:not(.--read-only) > li > .MenuListItem {
     cursor: pointer;
     transition: background-color .25s ease;
 }
 
-.MenuListItem > .MenuListItem__title {
+.MenuListItem__title {
     position: relative;
     width: 100%;
-    font-size: 1em;
+    font-size: calc(var(--MenuList-font-size) * .95);
     padding-left: .2em;
 }
 
 .MenuListItem__description {
-    font-size: .65em;
+    font-size: calc(var(--MenuList-font-size) * .75);
     padding-left: calc(var(--MenuList-left-offset) * 1px);
-
     width: 25ch;
+}
+
+.MenuListItem__title,
+.MenuListItem__description {
+    color: var(--MenuList-color);
 }
 
 .MenuListItem__title::selection,
 .MenuListItem__description::selection {
-    background-color: var(--brand-color-l-lowest);
-    color: var(--brand-color-l-highest);
+    background-color: var(--MenuList-background-color--selection);
+    color: var(--MenuList-color--selection);
 }
 
-.MenuList > li:hover > .MenuListItem:not(.--added) {
-    background-color: var(--brand-color-l-high);
+/* .MenuList:not(.--read-only) > li:hover > label.MenuListItem:not(.--added) { */
+.MenuList:not(.--read-only) > li:hover > .MenuListItem:not(.--added) {
+    background-color: var(--MenuList-background-color--hover);
 }
 
 label.MenuListItem.--added {
-    background-color: var(--brand-color-l-low);
-    color: var(--brand-color-l-highest);
+    background-color: var(--MenuList-background-color--added);
+}
+
+label.MenuListItem.--added > .MenuListItem__title,
+label.MenuListItem.--added > .MenuListItem__description {
+    color: var(--MenuList-color--added);
 }
 
 label.MenuListItem > input {
@@ -66,7 +81,7 @@ span.MenuListItem > .MenuListItem__title > .MenuListItem__check {
     height: 50%;
     aspect-ratio: 1;
 
-    fill: var(--brand-color-l-low);
+    fill: var(--MenuList-background-color--added);
 
     opacity: 1;
 }

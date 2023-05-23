@@ -60,4 +60,59 @@ function switchMenuItemAdded(menu: MenuItem[] | undefined, idsList: number[]): M
     return walk(menu, idsList);
 }
 
-export { getMenuItem, switchMenuItemAdded };
+function fromIdsListToMenuItemList(menu: MenuItem[], idsList: number[]): MenuItem[] {
+    const out: MenuItem[] = [];
+
+    for (let i = 1; i <= idsList.length; i++) {
+        const menuItem = getMenuItem(menu, idsList.slice(0, i));
+        if (!menuItem) break;
+        const { values, ...rest } = menuItem;
+
+        out.push(rest);                       
+    }
+    
+    return out;
+}
+
+function fromMenuItemListToMenu(ordered: MenuItem[]): MenuItem[] {
+    // [[0,1,1], [0,2,1]]
+    // [0: [1: [1], 2: [1]]]
+    if (!ordered.length) return [];
+    return [{
+        ...ordered[0],
+        values: [...(ordered[0].values ?? []), ...fromMenuItemListToMenu(ordered.slice(1))] as MenuItem[],
+    }];
+}
+
+function fromMenuItemListsToMenu(menuItemsLists: MenuItem[][]): MenuItem[] {
+    let out: MenuItem[] = [];
+
+    for (let i = 0; i < menuItemsLists.length; i++) {
+        const menu = fromMenuItemListToMenu(menuItemsLists[i]);
+        if (!menu.length) break;
+
+        let alreadyIn = false;
+
+        for (let j = 0; j < out.length; j++) {
+            if (out[j].id === menuItemsLists[i][0].id) {
+                const children = fromMenuItemListToMenu([out[j], ...menuItemsLists[i].slice(1)]);
+                if (!children.length) break;
+
+                alreadyIn = true;
+
+                out = out.map((item, index) => {
+                    if (index === j) return children[0];
+                    return item;
+                });
+
+                break;
+            }
+        }
+
+        if (!alreadyIn) out.push(menu[0]);
+    }
+
+    return out;
+}
+
+export { getMenuItem, switchMenuItemAdded, fromIdsListToMenuItemList, fromMenuItemListsToMenu };

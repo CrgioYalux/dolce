@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useRef, useEffect } from "react";
 
 import type { MenuItem, Menu, MenuState, MenuActions, MenuContextProvider, OrderedFromMenu } from "./utils";
-import { getMenuItem, switchMenuItemAdded } from './helpers';
+import { switchMenuItemAdded, fromIdsListToMenuItemList, fromMenuItemListsToMenu } from './helpers';
 
 import { INITAL_MENU_CONTEXT, INITIAL_MENU_STATE } from "./consts";
 
@@ -21,24 +21,16 @@ const MenuProvider: React.FC<MenuProviderProps> = ({ children, initialState = IN
         orderedRef.current = new Map<string, MenuItem[]>();
     }, []);
 
-    const addToOrdered = (idsList: number[]): MenuItem[][] | undefined => {
-        if (!orderedRef.current) return undefined;
+    const addToOrdered = (idsList: number[]): MenuItem[][] => {
+        if (!orderedRef.current) return [];
 
         const key = idsList.slice(0, idsList.length - 1).join('');
-        const menuItems: MenuItem[] = [];
-
-        for (let i = 1; i <= idsList.length; i++) {
-            const menuItem = getMenuItem(state.menu, idsList.slice(0, i));
-            if (!menuItem) break;
-            const { values, ...rest } = menuItem;
-
-            menuItems.push(rest);                       
-        }
+        const menuItems = fromIdsListToMenuItemList(state.menu, idsList);
         
-        if (!(idsList.length === menuItems.length)) return;
+        if (idsList.length !== menuItems.length) return [];
 
-        const ordered = orderedRef.current.set(key, menuItems);
-        return Array.from(ordered.values());
+        const updatedOrdered = orderedRef.current.set(key, menuItems);
+        return Array.from(updatedOrdered.values());
     };
 
     const actions: MenuActions = {
@@ -48,13 +40,16 @@ const MenuProvider: React.FC<MenuProviderProps> = ({ children, initialState = IN
         pickFromMenu: (idsList: number[]) => {
             if (!idsList.length) return;
 
-            const ordered = addToOrdered(idsList);
-            if (!ordered) return;
+            const orderedAsList = addToOrdered(idsList);
+            if (!orderedAsList.length || !orderedAsList[0].length) return;
 
-            const menu = switchMenuItemAdded(state.menu, idsList);
-            if (menu.length === 0) return;
+            const orderedAsMenu = fromMenuItemListsToMenu(orderedAsList);
+            if (!orderedAsMenu.length) return;
 
-            setState({ menu, ordered });
+            const updatedMenu = switchMenuItemAdded(state.menu, idsList);
+            if (updatedMenu.length === 0) return;
+
+            setState({ menu: updatedMenu, ordered: orderedAsMenu });
         },
     };
 

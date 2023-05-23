@@ -238,6 +238,31 @@ const MENU: Menu = [
                 ]
             }
         ]
+    },
+    {
+        id: 1,
+        added: false,
+        isOption: false,
+        title: "Tarta",
+        description: "",
+        values: [
+            {
+                id: 0,
+                added: false,
+                isOption: false,
+                title: "Sabor",
+                description: "",
+                values: [
+                    {
+                        id: 0,
+                        added: false,
+                        isOption: true,
+                        title: "Chocolate",
+                        description: "Amargo",
+                    }
+                ]
+            }
+        ]
     }
 ];
 
