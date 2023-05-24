@@ -3,6 +3,7 @@ type MenuItem = {
     title: string,
     added: boolean,
     isOption: boolean,
+    collapsed?: boolean;
     values?: MenuItem[],
     description?: string,
 };
@@ -17,6 +18,7 @@ interface MenuState {
 interface MenuActions {
     setMenu: (menu: Menu) => void;
     pickFromMenu: (idsList: number[]) => void;
+    switchCollapsability: (idsList: number[]) => void;
 };
 
 type MenuContextProvider = readonly [

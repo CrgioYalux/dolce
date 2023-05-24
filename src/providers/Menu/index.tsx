@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useRef, useEffect } from "react";
 
 import type { MenuItem, Menu, MenuState, MenuActions, MenuContextProvider, OrderedFromMenu } from "./utils";
-import { switchMenuItemAdded, fromIdsListToMenuItemList, fromMenuItemListsToMenu } from './helpers';
+import { switchMenuItemAdded, switchMenuSectionCollapsibility, fromIdsListToMenuItemList, fromMenuItemListsToMenu } from './helpers';
 
 import { INITAL_MENU_CONTEXT, INITIAL_MENU_STATE } from "./consts";
 
@@ -47,9 +47,17 @@ const MenuProvider: React.FC<MenuProviderProps> = ({ children, initialState = IN
             if (!orderedAsMenu.length) return;
 
             const updatedMenu = switchMenuItemAdded(state.menu, idsList);
-            if (updatedMenu.length === 0) return;
+            if (!updatedMenu.length) return;
 
             setState({ menu: updatedMenu, ordered: orderedAsMenu });
+        },
+        switchCollapsability: (idsList: number[]) => {
+            if (!idsList.length) return;
+            
+            const updatedMenu = switchMenuSectionCollapsibility(state.menu, idsList);
+            if (!updatedMenu.length) return;
+
+            setState(prev => ({ menu: updatedMenu, ordered: prev.ordered }));
         },
     };
 

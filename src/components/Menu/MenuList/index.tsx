@@ -54,6 +54,7 @@ interface WalkProps {
 
     handlers?: {
         onListItemClick?: (idsList: number[]) => void;
+        onListCollapsibilitySwitch?: (idsList: number[]) => void;
     };
 
     offset: {
@@ -95,10 +96,17 @@ const Walk: React.FC<WalkProps> = ({
                           /> 
                         : <MenuSection
                           section={item}
+                          handlers={{
+                              onClick: () => {
+                                    if (handlers?.onListCollapsibilitySwitch) {
+                                        handlers.onListCollapsibilitySwitch([...ids, item.id]);
+                                    }
+                              }
+                          }}
                           />
                     }
 
-                    {item.values && 
+                    {(item.values && !item.collapsed) &&
                         <Walk
                         list={item.values}
                         ids={[...ids, item.id]}
@@ -122,6 +130,7 @@ interface MenuListProps {
 
     handlers?: {
         onListItemClick?: (idsList: number[]) => void;
+        onListCollapsibilitySwitch?: (idsList: number[]) => void;
     };
 
     offset?: {

@@ -18,7 +18,10 @@ const Menu: React.FC<MenuProps> = ({ className }) => {
             handlers={{
                 onListItemClick: (idsList: number[]) => { 
                     actions.pickFromMenu(idsList);
-                }
+                },
+                onListCollapsibilitySwitch: (idsList: number[]) => {
+                    actions.switchCollapsability(idsList);
+                },
             }}
             offset={{ omitFirst: true, increment: 30 }}
             />

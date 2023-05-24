@@ -40,16 +40,54 @@ function switchMenuItemAdded(menu: MenuItem[] | undefined, idsList: number[]): M
                         values: walk(menu[i].values, idsList.slice(1)),
                     });
                 }
-            } else if (idsList.length === 1) {
+            } else {
+                if (idsList.length === 1) {
+                    out.push({
+                        ...menu[i],
+                        added: false,
+                        values: walk(menu[i].values, []),
+                    });
+                } else { 
+                    out.push({
+                        ...menu[i],
+                        values: walk(menu[i].values, []),
+                    });
+                }
+            }
+        }
+
+        return out;
+    }
+
+    return walk(menu, idsList);
+}
+
+function switchMenuSectionCollapsibility(menu: MenuItem[] | undefined, idsList: number[]): MenuItem[] {
+    function walk(menu: MenuItem[] | undefined, idsList: number[]): MenuItem[] {
+        if (!menu) return [];
+
+        const out: MenuItem[] = [];
+
+        for (let i = 0; i < menu.length; i++) {
+            if (menu[i].id !== idsList[0]) {
                 out.push({
                     ...menu[i],
-                    added: false,
                     values: walk(menu[i].values, []),
                 });
-            } else { 
+                continue;
+            }
+
+            if (idsList.length === 1) {
                 out.push({
                     ...menu[i],
+                    collapsed: !menu[i].collapsed,
                     values: walk(menu[i].values, []),
+                });
+            }
+            else {
+                out.push({
+                    ...menu[i],
+                    values: walk(menu[i].values, idsList.slice(1)),
                 });
             }
         }
@@ -115,4 +153,4 @@ function fromMenuItemListsToMenu(menuItemsLists: MenuItem[][]): MenuItem[] {
     return out;
 }
 
-export { getMenuItem, switchMenuItemAdded, fromIdsListToMenuItemList, fromMenuItemListsToMenu };
+export { getMenuItem, switchMenuItemAdded, switchMenuSectionCollapsibility, fromIdsListToMenuItemList, fromMenuItemListsToMenu };

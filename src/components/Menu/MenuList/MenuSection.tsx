@@ -3,9 +3,16 @@ import CheckIcon from "../../Icons/CheckIcon";
 
 interface MenuSectionProps {
     section: MenuItem;
+    
+    handlers?: {
+        onClick?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+    };
 };
 
-const MenuSection: React.FC<MenuSectionProps> = ({ section }) => {
+const MenuSection: React.FC<MenuSectionProps> = ({
+    section,
+    handlers
+}) => {
     return (
         <span
         className='MenuListItem'
@@ -15,6 +22,9 @@ const MenuSection: React.FC<MenuSectionProps> = ({ section }) => {
             >
             {section.added && <CheckIcon className='MenuListItem__check' />}
             {section.title}
+            <button
+            onClick={(event) => handlers?.onClick && handlers?.onClick(event)}
+            >{!section.collapsed ? '-' : '+'}</button>
             </strong>
             {section.description &&
                 <small
