@@ -1,25 +1,14 @@
 .App {
     min-height: 100vh;
     width: 100%;
-
-    display: flex;
-    flex-direction: column;
 }
 
 .App > main {
-    color: var(--brand-color-l-lowest);
-    font-size: clamp(1.4rem, 4vw, 2.2rem);
-    margin: -10% auto auto auto;
-}
-
-.App > main > h2 {
-    font-family: var(--brand-font-family);
-    letter-spacing: 2px;
-}
-
-.App > main > h6 {
-    font-family: var(--systen-font-family);
-    letter-spacing: 6px;
+    width: max-content;
+    max-width: 50vw;
+    min-width: 200px;
+    margin: 5vh auto auto 10vw;
+    font-size: clamp(1rem, 4vw, 2.2rem);
 }
 
 .App__HeaderBar {
@@ -37,8 +26,4 @@
     z-index: 1000;
 
     background-color: var(--HeaderBar-bt-icon-background-color) !important;
-}
-
-.App > main {
-    margin-top: auto;
 }

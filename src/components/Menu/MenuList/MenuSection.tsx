@@ -1,5 +1,7 @@
 import type { MenuItem } from "../../../providers/Menu/utils";
 import CheckIcon from "../../Icons/CheckIcon";
+import CollapseIcon from "../../Icons/CollapseIcon";
+import ExpandIcon from "../../Icons/ExpandIcon";
 
 interface MenuSectionProps {
     section: MenuItem;
@@ -20,11 +22,19 @@ const MenuSection: React.FC<MenuSectionProps> = ({
             <strong
             className={`MenuListItem__title ${section.added ? '--added' : '--not-added'}`}
             >
-            {section.added && <CheckIcon className='MenuListItem__check' />}
+            {section.added && <CheckIcon className='MenuListItem__icon MenuListItem__check' />}
             {section.title}
             <button
             onClick={(event) => handlers?.onClick && handlers?.onClick(event)}
-            >{!section.collapsed ? '-' : '+'}</button>
+            className='MenuListItem__collapse_bt'
+            >{!section.collapsed 
+                ? <CollapseIcon
+                className='MenuListItem__icon MenuListItem__collapse'
+                /> 
+                : <ExpandIcon
+                className='MenuListItem__icon MenuListItem__expand'
+                />
+            }</button>
             </strong>
             {section.description &&
                 <small
