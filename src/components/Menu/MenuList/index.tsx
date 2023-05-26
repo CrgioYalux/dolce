@@ -32,7 +32,7 @@ const ReadOnlyWalk: React.FC<ReadOnlyWalkProps> = ({
         {list.map((item) => (
             <li key={item.id}>
                 <ReadOnlyMenuItem item={item} />
-                {item.values &&
+                {!item.isOption &&
                     <ReadOnlyWalk
                     className={className}
                     list={item.values}
@@ -106,7 +106,7 @@ const Walk: React.FC<WalkProps> = ({
                           />
                     }
 
-                    {(item.values && !item.collapsed) &&
+                    {(!item.isOption && !item.collapsed) &&
                         <Walk
                         list={item.values}
                         ids={[...ids, item.id]}

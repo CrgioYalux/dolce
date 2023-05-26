@@ -2,7 +2,7 @@ import type { MenuItem } from "../../../providers/Menu/utils";
 
 interface MenuOptionProps {
     section: string;
-    option: MenuItem;
+    option: MenuItem & { isOption: true };
     
     handlers?: {
         onClick?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;

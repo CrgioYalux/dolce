@@ -4,7 +4,7 @@ import CollapseIcon from "../../Icons/CollapseIcon";
 import ExpandIcon from "../../Icons/ExpandIcon";
 
 interface MenuSectionProps {
-    section: MenuItem;
+    section: MenuItem & { isOption: false };
     
     handlers?: {
         onClick?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
