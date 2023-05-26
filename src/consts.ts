@@ -7,13 +7,17 @@ const MENU: Menu = [
         isOption: false,
         title: "Torta",
         description: "",
+        required: false,
+        collapsed: false,
         values: [
             {
                 id: 0,
                 added: false,
                 isOption: false,
                 title: "Bizcochuelo",
-                description: "Added a description",
+                description: "added a description",
+                required: true,
+                collapsed: false,
                 values: [
                     {
                         id: 0,
@@ -64,6 +68,9 @@ const MENU: Menu = [
                 added: false,
                 title: "Almíbar",
                 isOption: false,
+                description: "added a description",
+                required: false,
+                collapsed: false,
                 values: [
                     {
                         id: 0,
@@ -93,6 +100,9 @@ const MENU: Menu = [
                 added: false,
                 title: "Relleno",
                 isOption: false,
+                description: "",
+                required: true,
+                collapsed: false,
                 values: [
                     {
                         id: 0,
@@ -205,7 +215,10 @@ const MENU: Menu = [
                 id: 3,
                 added: false,
                 title: "Coberturas",
+                description: "",
                 isOption: false,
+                required: true,
+                collapsed: false,
                 values: [
                     {
                         id: 0,
@@ -245,6 +258,8 @@ const MENU: Menu = [
         isOption: false,
         title: "Tarta",
         description: "",
+        collapsed: false,
+        required: false,
         values: [
             {
                 id: 0,
@@ -252,6 +267,8 @@ const MENU: Menu = [
                 isOption: false,
                 title: "Sabor",
                 description: "",
+                required: false,
+                collapsed: false,
                 values: [
                     {
                         id: 0,

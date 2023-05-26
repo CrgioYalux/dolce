@@ -26,18 +26,6 @@ type MenuItemOption = {
 
 type MenuItem = MenuItemShared | MenuItemOption;
 
-type MenuItem_bak = {
-    id: number,
-    title: string,
-    added: boolean,
-    isOption: boolean,
-    description?: string,
-
-    values?: MenuItem_bak[],
-    required?: boolean,
-    collapsed?: boolean,
-};
-
 type Menu = MenuItem[];
 
 interface MenuState {
