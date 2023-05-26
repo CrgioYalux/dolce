@@ -1,5 +1,6 @@
 .NavBarMenu {
-    flex: 1 1 auto;
+    min-height: 100vh;
+    height: 100%;
     width: 100%;
 
     font-size: clamp(3rem, 4vw, 6rem);
