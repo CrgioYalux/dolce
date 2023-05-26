@@ -1,14 +1,14 @@
 import type { MenuItem } from "./utils";
 
 function getMenuItem(menu: MenuItem[] | undefined, idsList: number[]): MenuItem | undefined {
-    function walk(menu: MenuItem[] | undefined, idsList: number[]): MenuItem | undefined {
-        if (!menu) return undefined;
-        if (!menu.length) return undefined;
+    if (!menu) return undefined;
 
+    function walk(menu: MenuItem[], idsList: number[]): MenuItem | undefined {
         for (let i = 0; i < menu.length; i++) {
-            if (menu[i].id === idsList[0]) {
-                if (idsList.length === 1) return menu[idsList[0]];
-                return walk(menu[i].values, idsList.slice(1));
+            const menuItem = menu[i];
+            if (menuItem.id === idsList[0]) {
+                if (idsList.length === 1) return menuItem;
+                if (!menuItem.isOption) return walk(menuItem.values, idsList.slice(1));
             }
         }
 
@@ -25,35 +25,29 @@ function switchMenuItemAdded(menu: MenuItem[] | undefined, idsList: number[]): M
         const out: MenuItem[] = [];
 
         for (let i = 0; i < menu.length; i++) {
-            if (menu[i].id === idsList[0]) {
-                if (idsList.length === 1) {
-                    out.push({
-                        ...menu[i],
-                        added: !menu[i].added,
-                        values: walk(menu[i].values, []),
-                    });
-                }
-                else {
-                    out.push({
-                        ...menu[i],
-                        added: !getMenuItem(menu, idsList)?.added ?? false,
-                        values: walk(menu[i].values, idsList.slice(1)),
-                    });
-                }
-            } else {
-                if (idsList.length === 1) {
-                    out.push({
-                        ...menu[i],
-                        added: false,
-                        values: walk(menu[i].values, []),
-                    });
-                } else { 
-                    out.push({
-                        ...menu[i],
-                        values: walk(menu[i].values, []),
-                    });
-                }
+            const menuItem = menu[i];
+            
+            if (menuItem.id !== idsList[0]) {
+                out.push({
+                    ...menuItem,
+                    added: idsList.length === 1 ? false : menuItem.added,
+                });
+                continue;
             }
+            
+            if (!menuItem.isOption) {
+                out.push({
+                    ...menuItem,
+                    added: true,
+                    values: walk(menuItem.values, idsList.slice(1)),
+                });
+                continue;
+            }
+
+            out.push({
+                ...menuItem,
+                added: idsList.length === 1,
+            });
         }
 
         return out;
@@ -69,25 +63,18 @@ function switchMenuSectionCollapsibility(menu: MenuItem[] | undefined, idsList: 
         const out: MenuItem[] = [];
 
         for (let i = 0; i < menu.length; i++) {
-            if (menu[i].id !== idsList[0]) {
-                out.push({
-                    ...menu[i],
-                    values: walk(menu[i].values, []),
-                });
+            const menuItem = menu[i];
+
+            if (menuItem.id !== idsList[0]) {
+                out.push(menuItem);
                 continue;
             }
 
-            if (idsList.length === 1) {
+            if (!menuItem.isOption) {
                 out.push({
-                    ...menu[i],
-                    collapsed: !menu[i].collapsed,
-                    values: walk(menu[i].values, []),
-                });
-            }
-            else {
-                out.push({
-                    ...menu[i],
-                    values: walk(menu[i].values, idsList.slice(1)),
+                    ...menuItem,
+                    collapsed: idsList.length === 1 ? !menuItem.collapsed : menuItem.collapsed,
+                    values: idsList.length === 1 ? menuItem.values : walk(menuItem.values, idsList.slice(1)),
                 });
             }
         }
@@ -104,22 +91,17 @@ function fromIdsListToMenuItemList(menu: MenuItem[], idsList: number[]): MenuIte
     for (let i = 1; i <= idsList.length; i++) {
         const menuItem = getMenuItem(menu, idsList.slice(0, i));
         if (!menuItem) break;
-        const { values, ...rest } = menuItem;
 
-        out.push(rest);                       
+        out.push(menuItem.isOption ? menuItem : { ...menuItem, values: [] });                       
     }
     
     return out;
 }
 
 function fromMenuItemListToMenu(ordered: MenuItem[]): MenuItem[] {
-    // [[0,1,1], [0,2,1]]
-    // [0: [1: [1], 2: [1]]]
     if (!ordered.length) return [];
-    return [{
-        ...ordered[0],
-        values: [...(ordered[0].values ?? []), ...fromMenuItemListToMenu(ordered.slice(1))] as MenuItem[],
-    }];
+    const menuItem = ordered[0];
+    return menuItem.isOption ? [menuItem] : [{ ...menuItem, values: [...menuItem.values, ...fromMenuItemListToMenu(ordered.slice(1))]}];
 }
 
 function fromMenuItemListsToMenu(menuItemsLists: MenuItem[][]): MenuItem[] {
@@ -137,11 +119,7 @@ function fromMenuItemListsToMenu(menuItemsLists: MenuItem[][]): MenuItem[] {
                 if (!children.length) break;
 
                 alreadyIn = true;
-
-                out = out.map((item, index) => {
-                    if (index === j) return children[0];
-                    return item;
-                });
+                out = out.map((item, index) => index === j ? children[0] : item);
 
                 break;
             }

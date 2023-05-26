@@ -13,6 +13,7 @@ const INITAL_MENU_CONTEXT: readonly [MenuState, MenuActions] = [
     {
         setMenu: ([]) => {},
         pickFromMenu: ([]) => {},
+        switchCollapsability: ([]) => {},
     }
 ];
 

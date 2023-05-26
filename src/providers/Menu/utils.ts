@@ -1,11 +1,41 @@
-type MenuItem = {
+type MenuItemShared = {
+    isOption: false,
+
+    id: number,
+
+    title: string,
+    description: string,
+
+    added: boolean,
+    required: boolean,
+    collapsed: boolean,
+
+    values: MenuItem[],
+};
+
+type MenuItemOption = {
+    isOption: true,
+
+    id: number,
+
+    title: string,
+    description: string,
+
+    added: boolean,
+}
+
+type MenuItem = MenuItemShared | MenuItemOption;
+
+type MenuItem_bak = {
     id: number,
     title: string,
     added: boolean,
     isOption: boolean,
-    collapsed?: boolean;
-    values?: MenuItem[],
     description?: string,
+
+    values?: MenuItem_bak[],
+    required?: boolean,
+    collapsed?: boolean,
 };
 
 type Menu = MenuItem[];
